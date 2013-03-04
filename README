@@ -1,0 +1,30 @@
+Hello and welcome
+
+Your mission, should you choose to accept it, is to construct a simple two (or
+more, should you choose) page application.
+
+The application shall accept the details of a person looking for a share
+house/apartment. On submit, write the details to permanent storage
+to be read later; and display a simple confirmation page.
+
+You are free to split the page into any subset of details you want.
+
+The amount of details granularity is completely upto you, as is the
+language(s)/application(s) you choose to do this application in.
+
+Expectations:
+
+1. Application should be simple, as stand alone as possible and extremely easy to
+   deploy/run on any machine.
+2. Input validation on the client and server side.
+3. Some form of styling on all pages of the application.
+4. Quality Assurance on the application.
+
+Submission:
+As you can see, we have sent you a git repository. Please email us
+back the link to a github repo with the solution. We are looking to
+evaluate your engineering skills across the stack (from input to storage),
+even if the stack does not have all the features in it. So we recommend taking
+the Agile approach to this problem :)
+
+Best of luck
