@@ -2,7 +2,23 @@
 <head>
 <script src="js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
+
 function createListing() {
+	if($("#email").val() =="") {
+		$("#emailID").attr("class", "control-group error");
+		$("#email_span").text("Please enter a valid email");
+		return false;
+	} else {
+		var x=$("#email").val();
+		var atpos=x.indexOf("@");
+		var dotpos=x.lastIndexOf(".");
+		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+		  {
+			$("#emailID").attr("class", "control-group error");
+			$("#email_span").text("Please enter a valid email");
+		  	return false;
+		  }
+	}
 	
 	var myForm = document.getElementById("input_form");
 	suburbName = "";
@@ -13,6 +29,16 @@ function createListing() {
 		}
 	}
 	suburbName = suburbName.substring(1, suburbName.length);
+	if(suburbName == "") {
+		$("suburbsDiv").attr("class", "control-group error");
+		$("#suburbs_span").text("Please select a suburb");
+		return false;
+	}
+	if($("#price").val() == "" || $("#price").val() =="0") {
+		$("#priceID").attr("class", "control-group error");
+		$("#price_span").text("Please enter a valid price");
+		return false;
+	}
 	$('<input>').attr({
     	type: 'hidden',
     	id: 'suburb',
@@ -30,6 +56,7 @@ function createListing() {
 	});
 	return false;
 	
+	
 }
 
 	
@@ -43,16 +70,17 @@ function createListing() {
 <form class= "form-horizontal" id="input_form">
  <fieldset>  
           <legend>Looking for a Rental Apartment/ House Share?</legend>  
-<div class="control-group">
+<div id="emailID" class="control-group">
 <label class="control-label" for="email">Email:</label>  
-	<div class="controls">  
-    	<input type="text" class="input-xlarge" name="email" id="email"> 
+	<div id="emailid_text" class="controls">  
+    	<input type="text" class="input-xlarge" name="email" id="email">
+    	<span id="email_span" class="help-inline"/>
 </div></div>
 
- <div class="control-group">  
-            <label class="control-label" for="suburb">Suburb:</label>  
-            <div class="controls">  
-              <select multiple="multiple" id="suburb" name="suburbs">  
+ <div id="suburbsDiv" class="control-group">  
+            <label class="control-label" for="suburbs">Suburb:</label>  
+            <div id="suburbsSelect" class="controls">  
+              <select multiple="multiple" id="suburbs" name="suburbs">  
                 <option value="Indiranagar">Indiranagar</option>
                 <option value="Jayanagar">Jayanagar</option>  
                 <option value="Koramangala">Koramangala</option>  
@@ -61,14 +89,15 @@ function createListing() {
                 <option value="Yelahanka">Yelahanka</option>  
                  
               </select>
-         
+         <span id="suburbs_span" class="help-inline"/>
             </div> 
            
           </div>  
-<div class="control-group">
+<div id="priceID" class="control-group">
 <label class="control-label" for="price">Price (per week):</label>  
 	<div class="controls">  
     	<input type="text" class="input-xlarge" id="price" name="price" placeholder="Enter price in Rupees"> 
+	 <span id="price_span" class="help-inline"/>
 </div></div>
 
 <div class="form-actions">  

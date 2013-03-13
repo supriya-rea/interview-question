@@ -45,7 +45,7 @@ public class PersonController {
 		PersonDatabase database = new PersonDatabase();
 		
 		DAO dao = new PersonDAO(database.getConnection());
-		System.out.println(suburb);
+		
 		PersonManager manager = new PersonManager(dao);
 		Person person = new Person(email);
 		Listing listing = new Listing(suburb, 0, new LocalDate());
