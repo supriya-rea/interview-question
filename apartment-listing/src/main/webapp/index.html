@@ -1,0 +1,33 @@
+<html>
+<head>
+<script type="text/javascript">
+function enableButton(){
+	if(document.getElementById("accoCheck").checked == true) {
+	document.getElementById("create-button").disabled = false;
+	document.getElementById("view-button").disabled = true;
+	} else {
+		document.getElementById("create-button").disabled = true;
+		document.getElementById("view-button").disabled= false;
+	}
+	
+}
+function test() {
+	alert("testing javascript");
+}
+</script>
+<link href="twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+<form class= "well" id="input_form">
+<label>Email:</label>
+<input type="text" class="span3" placeholder="Enter your email.."/>
+<label class="checkbox">
+<input type="checkbox" id="accoCheck" onclick="enableButton();">Looking for accomodation?</input>
+</label>
+<button type="submit" id="create-button" class="btn btn primary" disabled>Create Listing</button>
+
+<button onClick="test();" id="view-button" class="btn">View Listings</button>
+</form>
+</body>
+
+</html>

@@ -1,17 +1,19 @@
 package interview.supriya.user;
 
 import interview.supriya.dao.DAO;
+import interview.supriya.dao.MockDAO;
 import interview.supriya.manage.PersonManager;
 
 import org.joda.time.LocalDate;
 
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-import cucumber.annotation.en.And;
-import cucumber.annotation.en.Given;
-import cucumber.annotation.en.Then;
-import cucumber.annotation.en.When;
 
 public class ApartmentListingStep {
 	DAO personDAO = new MockDAO();
@@ -46,7 +48,7 @@ public class ApartmentListingStep {
 		assertTrue(!manager.userHasAccount(person));
 	}
 
-	@Given("^I am looking for an accomodation$")
+	@And("^I am looking for an accomodation$")
 	public void I_am_looking_for_an_accomodation() {
 		person.isLookingForAccomodation(true);
 	}

@@ -1,3 +1,4 @@
+
 Feature: As a user, I should be able to create 
 		the apartment listing.
 

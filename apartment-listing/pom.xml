@@ -4,16 +4,42 @@
   <artifactId>apartment-listing</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+ 
   <dependencies>
+ <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>7.3.1.v20110307</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-webapp</artifactId>
+      <version>7.3.1.v20110307</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-servlet</artifactId>
+      <version>7.3.1.v20110307</version>
+    </dependency>
+    <dependency>
+    <groupId>com.sun.jersey</groupId>
+    <artifactId>jersey-json</artifactId>
+    <version>1.17</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.jersey</groupId>
+    <artifactId>jersey-servlet</artifactId>
+    <version>1.17</version>
+</dependency>
   	<dependency>
   		<groupId>info.cukes</groupId>
   		<artifactId>cucumber-junit</artifactId>
-  		<version>1.0.1</version>
+  		<version>1.1.1</version>
   	</dependency>
     	<dependency>
   		<groupId>info.cukes</groupId>
   		<artifactId>cucumber-java</artifactId>
-  		<version>1.0.1</version>
+  		<version>1.1.1</version>
   	</dependency>
     	<dependency>
     		<groupId>junit</groupId>
@@ -25,5 +51,5 @@
     		<artifactId>joda-time</artifactId>
     		<version>2.1</version>
     	</dependency>
-  </dependencies>
+     </dependencies>
 </project>

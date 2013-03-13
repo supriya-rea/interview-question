@@ -1,9 +1,9 @@
-package interview.supriya.user;
+package interview.supriya.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import interview.supriya.dao.DAO;
+import interview.supriya.user.Person;
 
 public class MockDAO implements DAO {
 	List<Person> persons = new ArrayList<Person>();
