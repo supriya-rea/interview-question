@@ -1,49 +1,71 @@
 <html>
 <head>
 <script type="text/javascript">
-function enableButton(){
-	if(document.getElementById("accoCheck").checked == true) {
-		document.getElementById("accoDetails").style.display = 'block';
-	document.getElementById("create-button").disabled = false;
-	document.getElementById("view-button").disabled = true;
-	} else {
-		document.getElementById("accoDetails").style.display = 'none';
-		document.getElementById("create-button").disabled = true;
-		document.getElementById("view-button").disabled= false;
-	}
-	
-}
 function createListing() {
-	if(document.getElementById("create-button").disabled ==false) {
+	
 	var myForm = document.getElementById("input_form");
+	suburbName = "";
+	for(i = 0; i <myForm.suburbs.length; i++) {
+		
+		if (myForm.suburbs[i].selected == true) {
+			suburbName =suburbName +","+ myForm.suburbs[i].value;
+		}
+	}
+    if(suburbName !="") {
+		suburbName = suburbName.substring(1, suburbName.length);
+    } 
+	 var input = document.createElement('input');
+	    input.type = 'hidden';
+	    input.name = 'suburb';
+	    input.id= 'suburb';
+	    input.value = suburbName;
+	    myForm.appendChild(input);
+	
 	myForm.method = "post";
 	myForm.action="../rest/create";
 	myForm.submit();
-	}
+	
 }
-function test() {
-	alert("testing javascript");
-}
+
 </script>
 <link href="twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet"/>
 </head>
 <body>
-<form class= "well" id="input_form">
-<label>Email:</label>
-<input type="text" class="span3" placeholder="Enter your email.."/>
-<label class="checkbox">
-<input type="checkbox" id="accoCheck" onclick="enableButton();">Looking for accomodation?</input>
+<form class= "form-horizontal" id="input_form">
+ <fieldset>  
+          <legend>Looking for a Rental Apartment/ House Share?</legend>  
+<div class="control-group">
+<label class="control-label" for="email">Email:</label>  
+	<div class="controls">  
+    	<input type="text" class="input-xlarge" name="email" id="email"> 
+</div></div>
 
-</label>
-<div id="accoDetails" style="display:none">
-<label>Suburb:</label>
-<input type="text" class="span3" placeholder="Enter suburbs (comma separated).."/>
-<label>Price (per week)</label>
-<input type="text" class="span3" placeholder="Enter price in AUD"/>
+ <div class="control-group">  
+            <label class="control-label" for="suburb">Suburb:</label>  
+            <div class="controls">  
+              <select multiple="multiple" id="suburb" name="suburbs">  
+                <option>Indiranagar</option>
+                <option>Jayanagar</option>  
+                <option>Koramangala</option>  
+                <option>Malleswaram</option>
+                <option>Whitefield</option>  
+                <option>Yelahanka</option>  
+                 
+              </select>
+         
+            </div> 
+           
+          </div>  
+<div class="control-group">
+<label class="control-label" for="price">Price (per week):</label>  
+	<div class="controls">  
+    	<input type="text" class="input-xlarge" id="price" name="price" placeholder="Enter price in Rupees"> 
+</div></div>
+
+<div class="form-actions">  
+<button type="submit" onClick="createListing();" id="create-button" class="btn btn-primary" >Create Listing</button>
 </div>
-<button type="submit" onClick="createListing();" id="create-button" class="btn btn-primary" disabled>Create Listing</button>
-
-<button onClick="test();" id="view-button" class="btn">View Listings</button>
+</fieldset>
 </form>
 </body>
 
