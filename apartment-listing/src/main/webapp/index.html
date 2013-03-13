@@ -1,5 +1,6 @@
 <html>
 <head>
+<script src="js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 function createListing() {
 	
@@ -11,26 +12,34 @@ function createListing() {
 			suburbName =suburbName +","+ myForm.suburbs[i].value;
 		}
 	}
-    if(suburbName !="") {
-		suburbName = suburbName.substring(1, suburbName.length);
-    } 
-	 var input = document.createElement('input');
-	    input.type = 'hidden';
-	    input.name = 'suburb';
-	    input.id= 'suburb';
-	    input.value = suburbName;
-	    myForm.appendChild(input);
-	
-	myForm.method = "post";
-	myForm.action="../rest/create";
-	myForm.submit();
+	suburbName = suburbName.substring(1, suburbName.length);
+	$('<input>').attr({
+    	type: 'hidden',
+    	id: 'suburb',
+    	name: 'suburb',
+    	value: suburbName
+    }).appendTo('#input_form');
+	$.ajax({
+		url:"../rest/create",
+		data:$('#input_form').serialize(),
+		dataType: 'html',
+		type: 'POST',
+		success: function(ret) {
+			$('#message').html(ret);
+		}
+	});
+	return false;
 	
 }
+
+	
+
 
 </script>
 <link href="twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet"/>
 </head>
 <body>
+<div id="message"/>
 <form class= "form-horizontal" id="input_form">
  <fieldset>  
           <legend>Looking for a Rental Apartment/ House Share?</legend>  
@@ -44,12 +53,12 @@ function createListing() {
             <label class="control-label" for="suburb">Suburb:</label>  
             <div class="controls">  
               <select multiple="multiple" id="suburb" name="suburbs">  
-                <option>Indiranagar</option>
-                <option>Jayanagar</option>  
-                <option>Koramangala</option>  
-                <option>Malleswaram</option>
-                <option>Whitefield</option>  
-                <option>Yelahanka</option>  
+                <option value="Indiranagar">Indiranagar</option>
+                <option value="Jayanagar">Jayanagar</option>  
+                <option value="Koramangala">Koramangala</option>  
+                <option value="Malleswaram">Malleswaram</option>
+                <option value="Whitefield">Whitefield</option>  
+                <option value="Yelahanka">Yelahanka</option>  
                  
               </select>
          
@@ -63,7 +72,7 @@ function createListing() {
 </div></div>
 
 <div class="form-actions">  
-<button type="submit" onClick="createListing();" id="create-button" class="btn btn-primary" >Create Listing</button>
+<button type="button"  onclick="createListing();" id="create-button" class="btn btn-primary" >Create Listing</button>
 </div>
 </fieldset>
 </form>

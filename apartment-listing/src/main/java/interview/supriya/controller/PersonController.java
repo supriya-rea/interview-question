@@ -33,20 +33,19 @@ public class PersonController {
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newTodo(@FormParam("email") String email,
-	      @FormParam("accoCheck") String isForAccomodation,
+	public void newListing(@FormParam("email") String email,
 	      @FormParam("suburb") String suburb,
+	      @FormParam("price") String price,
 	      @Context HttpServletResponse servletResponse) throws IOException {
 		DAO dao = new MockDAO();
+		System.out.println(suburb);
 		PersonManager manager = new PersonManager(dao);
 		Person person = new Person(email);
 		Listing listing = new Listing(suburb, 0, new LocalDate());
 		person.newListing(listing);
 		manager.createNewListing(person);
 		
+		  servletResponse.sendRedirect("../createListing.html");
 	
-		
-	    
-	    servletResponse.sendRedirect("../createListing.html");
 	  }
 }
