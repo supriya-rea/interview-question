@@ -34,6 +34,7 @@ function createListing() {
 			$("#confirmation").show();
 			$('#my-table > tbody:last').append('<tr><td>'+data.email+'</td><td>'+data.newListing.suburb+'</td><td>'+data.newListing.price+'</td></tr>');
     	    }
+		
 		});
 			
 		
@@ -123,8 +124,10 @@ function validPrice() {
 </fieldset>
 </form>
 <div class="container-fluid" id="confirmation" style="display:none"><h4>Listings Created Just Now: </h4></div>
-<table class="table table-striped" id="my-table" style="display:none"> 
+<div class="span9">
+<table class="table table-striped" id="my-table" style="display:none" > 
 <thead><tr><th>Email</th><th>Suburbs</th><th>Price</th></tr></thead><tbody></tbody></table> 
+</div>
 </body>
 
 </html>

@@ -2,8 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>interview.supriya.rea</groupId>
   <artifactId>apartment-listing</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <version>1.0</version>
  
   <dependencies>
   <!-- Jetty server dependencies -->
@@ -69,4 +68,31 @@
     	<version>2.2.9</version>
     	</dependency>
      </dependencies>
+    <build>
+    <plugins>
+    <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-assembly-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>create-my-bundle</id>
+      <phase>package</phase>
+      <goals>
+        <goal>single</goal>
+      </goals>
+  <configuration>
+  <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+    <archive>
+      <manifest>
+        <mainClass>interview.supriya.main.ApartmentListings</mainClass>
+      </manifest>
+    </archive>
+    
+  </configuration>
+</execution>
+    </executions>
+</plugin>    </plugins>
+    </build>
 </project>

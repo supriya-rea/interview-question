@@ -90,7 +90,7 @@ public class UserInputStep {
 	}
 	@Then("^I see the message 'Listing created successfully'$")
 	public void I_see_the_message_Listing_created_successfully() {
-		assertEquals(driver.findElement(By.id("message")).getText(), "Apartment Listing created.");
+		assertEquals(1, driver.findElement(By.id("my-table")).findElements(By.tagName("tr")).size());
 	    driver.quit();
 	}
 	
@@ -99,12 +99,6 @@ public class UserInputStep {
 		 driver.quit();
 	}
 	
-	class InputRecord {
-		public String email;
-		public String isAccomodationRequired;
-		public String suburb;
-		public String price;
-		public String date;
-	}
+	
 
 }
