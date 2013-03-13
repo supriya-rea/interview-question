@@ -1,5 +1,7 @@
 package interview.supriya.manage;
 
+import java.sql.SQLException;
+
 import interview.supriya.dao.DAO;
 import interview.supriya.user.Person;
 
@@ -10,7 +12,7 @@ public class PersonManager {
 		this.personDAO = personDAO;
 	}
 
-	public void createNewListing(Person person) {
+	public void createNewListing(Person person) throws SQLException {
 		if(!personDAO.userHasAccount(person)) {
 			personDAO.createUserAndListing(person);
 		} else {

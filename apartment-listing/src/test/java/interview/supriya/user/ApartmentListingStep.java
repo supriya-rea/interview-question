@@ -1,5 +1,7 @@
 package interview.supriya.user;
 
+import java.sql.SQLException;
+
 import interview.supriya.dao.DAO;
 import interview.supriya.dao.MockDAO;
 import interview.supriya.manage.PersonManager;
@@ -29,7 +31,7 @@ public class ApartmentListingStep {
 		
 	}
 	@When("^I give details for apartment listing$")
-	public void I_give_details_for_apartment_listing() {
+	public void I_give_details_for_apartment_listing() throws SQLException {
 		String suburb = "Suburb1";
 		double price = 100;
 		LocalDate date = new LocalDate();
@@ -65,7 +67,7 @@ public class ApartmentListingStep {
 	}
 
 	@Then("^my account is created$")
-	public void my_account_is_created() {
+	public void my_account_is_created() throws SQLException {
 		manager.createNewListing(person);
 		assertTrue(manager.userHasAccount(person));
 	}

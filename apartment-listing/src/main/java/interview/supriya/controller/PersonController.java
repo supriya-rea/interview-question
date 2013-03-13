@@ -2,11 +2,15 @@ package interview.supriya.controller;
 
 import interview.supriya.dao.DAO;
 import interview.supriya.dao.MockDAO;
+import interview.supriya.dao.PersonDAO;
+import interview.supriya.main.PersonDatabase;
 import interview.supriya.manage.PersonManager;
 import interview.supriya.user.Listing;
 import interview.supriya.user.Person;
 
 import java.io.IOException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -36,8 +40,11 @@ public class PersonController {
 	public void newListing(@FormParam("email") String email,
 	      @FormParam("suburb") String suburb,
 	      @FormParam("price") String price,
-	      @Context HttpServletResponse servletResponse) throws IOException {
-		DAO dao = new MockDAO();
+	      @Context HttpServletResponse servletResponse) throws IOException, SQLException {
+		
+		PersonDatabase database = new PersonDatabase();
+		
+		DAO dao = new PersonDAO(database.getConnection());
 		System.out.println(suburb);
 		PersonManager manager = new PersonManager(dao);
 		Person person = new Person(email);
