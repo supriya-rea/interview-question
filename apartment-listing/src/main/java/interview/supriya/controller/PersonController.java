@@ -35,24 +35,34 @@ public class PersonController {
 	
 	
 	@POST
-	@Produces(MediaType.TEXT_HTML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newListing(@FormParam("email") String email,
+	public Person newListing(@FormParam("email") String email,
 	      @FormParam("suburb") String suburb,
 	      @FormParam("price") String price,
 	      @Context HttpServletResponse servletResponse) throws IOException, SQLException {
 		
 		PersonDatabase database = new PersonDatabase();
-		
+		double priceVal = 0;
 		DAO dao = new PersonDAO(database.getConnection());
-		
+		if(validPrice(price)) {
+			priceVal = new Double(price);
+		}
 		PersonManager manager = new PersonManager(dao);
 		Person person = new Person(email);
-		Listing listing = new Listing(suburb, 0, new LocalDate());
+		Listing listing = new Listing(suburb, priceVal, new LocalDate());
 		person.newListing(listing);
 		manager.createNewListing(person);
-		
-		  servletResponse.sendRedirect("../createListing.html");
+		System.out.println("returning ...");
+		 return person;
 	
 	  }
+
+
+	public boolean validPrice(String price) {
+		if(price.matches("\\d+.\\d{1,2}") || price.matches("\\d+")) {
+			return true;
+		}
+		return false;
+	}
 }

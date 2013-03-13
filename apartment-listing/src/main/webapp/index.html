@@ -4,6 +4,45 @@
 <script type="text/javascript">
 
 function createListing() {
+	var myForm = document.getElementById("input_form");
+	var suburbName = "";
+	for(i = 0; i <myForm.suburbs.length; i++) {
+		
+		if (myForm.suburbs[i].selected == true) {
+			suburbName =suburbName +","+ myForm.suburbs[i].value;
+		}
+	}
+	suburbName = suburbName.substring(1, suburbName.length);
+	if(validEmail() &&validSuburb(suburbName) && validPrice()) {
+		if($("#suburb") && $("#suburb").val() == undefined) {
+			$('<input>').attr({
+		    	type: 'hidden',
+		    	id: 'suburb',
+		    	name: 'suburb',
+		    	value: suburbName
+		    }).appendTo('#input_form');
+		} else {
+			$("#suburb").attr("value", suburbName);
+		}
+		$.ajax({
+		url:"../rest/create",
+		data:$('#input_form').serialize(),
+		dataType: 'json',
+		type: 'POST',
+		success: function(data) {
+			$("#my-table").show();
+			$("#confirmation").show();
+			$('#my-table > tbody:last').append('<tr><td>'+data.email+'</td><td>'+data.newListing.suburb+'</td><td>'+data.newListing.price+'</td></tr>');
+    	    }
+		});
+			
+		
+		return false;
+	}
+	return false;
+	
+}
+function validEmail() {
 	if($("#email").val() =="") {
 		$("#emailID").attr("class", "control-group error");
 		$("#email_span").text("Please enter a valid email");
@@ -19,46 +58,24 @@ function createListing() {
 		  	return false;
 		  }
 	}
-	
-	var myForm = document.getElementById("input_form");
-	suburbName = "";
-	for(i = 0; i <myForm.suburbs.length; i++) {
-		
-		if (myForm.suburbs[i].selected == true) {
-			suburbName =suburbName +","+ myForm.suburbs[i].value;
-		}
-	}
-	suburbName = suburbName.substring(1, suburbName.length);
+	return true;
+}
+function validSuburb(suburbName) {
 	if(suburbName == "") {
-		$("suburbsDiv").attr("class", "control-group error");
+		$("#suburbsDiv").attr("class", "control-group error");
 		$("#suburbs_span").text("Please select a suburb");
 		return false;
 	}
+	return true;
+}
+function validPrice() {
 	if($("#price").val() == "" || $("#price").val() =="0") {
 		$("#priceID").attr("class", "control-group error");
 		$("#price_span").text("Please enter a valid price");
 		return false;
 	}
-	$('<input>').attr({
-    	type: 'hidden',
-    	id: 'suburb',
-    	name: 'suburb',
-    	value: suburbName
-    }).appendTo('#input_form');
-	$.ajax({
-		url:"../rest/create",
-		data:$('#input_form').serialize(),
-		dataType: 'html',
-		type: 'POST',
-		success: function(ret) {
-			$('#message').html(ret);
-		}
-	});
-	return false;
-	
-	
+	return true;
 }
-
 	
 
 
@@ -66,14 +83,14 @@ function createListing() {
 <link href="twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet"/>
 </head>
 <body>
-<div id="message"/>
+
 <form class= "form-horizontal" id="input_form">
  <fieldset>  
           <legend>Looking for a Rental Apartment/ House Share?</legend>  
 <div id="emailID" class="control-group">
 <label class="control-label" for="email">Email:</label>  
 	<div id="emailid_text" class="controls">  
-    	<input type="text" class="input-xlarge" name="email" id="email">
+    	<input type="text" class="input-xlarge" name="email" id="email" placeholder="Please enter a valid email id">
     	<span id="email_span" class="help-inline"/>
 </div></div>
 
@@ -105,6 +122,9 @@ function createListing() {
 </div>
 </fieldset>
 </form>
+<div class="container-fluid" id="confirmation" style="display:none"><h4>Listings Created Just Now: </h4></div>
+<table class="table table-striped" id="my-table" style="display:none"> 
+<thead><tr><th>Email</th><th>Suburbs</th><th>Price</th></tr></thead><tbody></tbody></table> 
 </body>
 
 </html>
