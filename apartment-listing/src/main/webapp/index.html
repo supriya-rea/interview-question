@@ -3,13 +3,23 @@
 <script type="text/javascript">
 function enableButton(){
 	if(document.getElementById("accoCheck").checked == true) {
+		document.getElementById("accoDetails").style.display = 'block';
 	document.getElementById("create-button").disabled = false;
 	document.getElementById("view-button").disabled = true;
 	} else {
+		document.getElementById("accoDetails").style.display = 'none';
 		document.getElementById("create-button").disabled = true;
 		document.getElementById("view-button").disabled= false;
 	}
 	
+}
+function createListing() {
+	if(document.getElementById("create-button").disabled ==false) {
+	var myForm = document.getElementById("input_form");
+	myForm.method = "post";
+	myForm.action="../rest/create";
+	myForm.submit();
+	}
 }
 function test() {
 	alert("testing javascript");
@@ -23,8 +33,15 @@ function test() {
 <input type="text" class="span3" placeholder="Enter your email.."/>
 <label class="checkbox">
 <input type="checkbox" id="accoCheck" onclick="enableButton();">Looking for accomodation?</input>
+
 </label>
-<button type="submit" id="create-button" class="btn btn primary" disabled>Create Listing</button>
+<div id="accoDetails" style="display:none">
+<label>Suburb:</label>
+<input type="text" class="span3" placeholder="Enter suburbs (comma separated).."/>
+<label>Price (per week)</label>
+<input type="text" class="span3" placeholder="Enter price in AUD"/>
+</div>
+<button type="submit" onClick="createListing();" id="create-button" class="btn btn-primary" disabled>Create Listing</button>
 
 <button onClick="test();" id="view-button" class="btn">View Listings</button>
 </form>
