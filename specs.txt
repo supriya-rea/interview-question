@@ -1,0 +1,23 @@
+************************************************************************************************************
+Running the application: The application  is packaged as an executable war file. 
+Please run the command:  java -jar apartment-listing-1.0.war.
+Then the application is available at http://localhost:8080/
+
+Requisites to run the application:
+1. JRE installed (1.6+)
+2. Browser compatible with twitter bootstrap features (html5)
+
+************************************************************************************************************
+
+Application design:
+The application is a simple web application with one screen. It is designed using html, css and javascript in the frontend
+and java RESTful web service as the backend. 
+It runs on self contained jetty server.
+The database provided is hsqldb which currently runs in-memory.
+
+Application weak points:
+1. The application is not designed for scalability currently. Also the database is not synchronised for concurrency.
+2. The application runs on port 8080.
+3. The database is in-memory. 
+4. There is no logging feature provided currently with the application.
+***************************************************************************************************************
