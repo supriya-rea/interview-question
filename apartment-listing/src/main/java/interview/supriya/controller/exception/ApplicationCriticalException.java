@@ -16,7 +16,7 @@ public class ApplicationCriticalException extends WebApplicationException {
 	        this(Arrays.asList(errors));
 	}
 	public ApplicationCriticalException(List<String> errors) {
-	        super(Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_XHTML_XML).entity(new GenericEntity<List<String>>(errors)
+	        super(Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).entity(new GenericEntity<List<String>>(errors)
 	                {}).build());
 	        this.errors = errors;
 	

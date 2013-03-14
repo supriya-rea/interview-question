@@ -77,6 +77,9 @@ public class PersonController {
 
 
 	public boolean validPrice(String price) {
+		if(price == null || price.equals("")) {
+			return false;
+		}
 		if(price.matches("\\d+.\\d{1,2}") || price.matches("\\d+")) {
 			return true;
 		}

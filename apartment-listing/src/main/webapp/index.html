@@ -34,7 +34,11 @@ function createListing() {
 			$("#confirmation").show();
 			$('#my-table > tbody:last').append('<tr><td>'+data.email+'</td><td>'+data.newListing.suburb+'</td><td>'+data.newListing.price+'</td></tr>');
     	    }
-		
+		statusCode: {
+		    400: function(err) {
+		      alert(err);
+		    }
+		  }		
 		});
 			
 		
