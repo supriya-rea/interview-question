@@ -1,8 +1,13 @@
 package interview.supriya.controller;
 
 import interview.supriya.controller.exception.ApplicationCriticalException;
+import interview.supriya.main.PersonDatabase;
+import interview.supriya.user.Person;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.Test;
@@ -45,5 +50,23 @@ public class PersonControllerTest {
 			assertEquals(3, e.getErrors().size());
 			assertEquals("email is not a valid email address", e.getErrors().get(0));
 		}
+	}
+	
+	@Test
+	public void createNewListing() throws IOException, SQLException {
+		PersonController controller = new PersonController();
+		
+			Person person = controller.newListing("test@test.com", "Koramangala", "110");
+			PersonDatabase database = new PersonDatabase();
+			Connection con = database.getConnection();
+			PreparedStatement stat = con.prepareStatement("Select * from LISTING where personEmail = ?");
+					stat.setString(1,"test@test.com");
+					ResultSet rs = stat.executeQuery();
+					while(rs.next()) {
+						assertEquals(person.getEmail(),rs.getString(1));
+						assertEquals(new Double(person.getNewListing().getPrice()).toString(),new Double(rs.getDouble(2)).toString());
+						assertEquals(person.getNewListing().getSuburb(), rs.getString(3));
+						assertEquals(person.getNewListing().getDate().toDate().getTime(), rs.getDate(4).getTime());
+					}
 	}
 }

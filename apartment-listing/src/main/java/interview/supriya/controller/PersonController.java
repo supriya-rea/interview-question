@@ -59,6 +59,7 @@ public class PersonController {
 		  
 
 		PersonDatabase database = new PersonDatabase();
+		
 		double priceVal = 0;
 		DAO dao = new PersonDAO(database.getConnection());
 		if(validPrice(price)) {

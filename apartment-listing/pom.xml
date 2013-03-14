@@ -10,16 +10,19 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
       <version>7.3.1.v20110307</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
       <version>7.3.1.v20110307</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlet</artifactId>
       <version>7.3.1.v20110307</version>
+      <scope>provided</scope>
     </dependency>
     <!-- jersey dependencies -->
     <dependency>
@@ -70,29 +73,61 @@
      </dependencies>
     <build>
     <plugins>
-    <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-assembly-plugin</artifactId>
-  <executions>
-    <execution>
-      <id>create-my-bundle</id>
-      <phase>package</phase>
-      <goals>
-        <goal>single</goal>
-      </goals>
-  <configuration>
-  <descriptorRefs>
-          <descriptorRef>jar-with-dependencies</descriptorRef>
-        </descriptorRefs>
-    <archive>
-      <manifest>
-        <mainClass>interview.supriya.main.ApartmentListings</mainClass>
-      </manifest>
-    </archive>
-    
-  </configuration>
-</execution>
-    </executions>
-</plugin>    </plugins>
+  <plugin>
+   <groupId>org.apache.maven.plugins</groupId>
+   <artifactId>maven-war-plugin</artifactId>
+   <version>2.1-beta-1</version>
+   <configuration>
+      <archive>
+         <manifest>
+            <mainClass>Launcher</mainClass>
+         </manifest>
+      </archive>
+   </configuration>
+</plugin>
+<plugin>
+   <artifactId>maven-antrun-plugin</artifactId>
+   <executions>
+      <execution>
+         <id>main-class-placement</id>
+         <phase>prepare-package</phase>
+         <configuration>
+            <tasks>
+               <move todir="${project.build.directory}/${project.artifactId}-${project.version}/">
+                  <fileset dir="${project.build.directory}/classes/">
+                     <include name="Launcher.class" />
+                  </fileset>
+               </move>
+            </tasks>
+         </configuration>
+         <goals>
+            <goal>run</goal>
+         </goals>
+      </execution>
+   </executions>
+</plugin>
+<plugin>
+   <groupId>org.apache.maven.plugins</groupId>
+   <artifactId>maven-dependency-plugin</artifactId>
+   <version>2.3</version>
+   <executions>
+      <execution>
+         <id>jetty-classpath</id>
+         <phase>prepare-package</phase>
+         <goals>
+            <goal>unpack-dependencies</goal>
+         </goals>
+         <configuration>
+            <includeGroupIds>org.eclipse.jetty,javax.servlet</includeGroupIds>
+            <excludeArtifactIds>jsp-api,jstl</excludeArtifactIds>
+            <outputDirectory>
+               ${project.build.directory}/${project.artifactId}-${project.version}
+            </outputDirectory>
+         </configuration>
+      </execution>
+   </executions>
+</plugin>
+    </plugins>
     </build>
+    <packaging>war</packaging>
 </project>

@@ -90,7 +90,7 @@ public class UserInputStep {
 	}
 	@Then("^I see the message 'Listing created successfully'$")
 	public void I_see_the_message_Listing_created_successfully() {
-		assertEquals(1, driver.findElement(By.id("my-table")).findElements(By.tagName("tr")).size());
+		assertEquals(2, driver.findElement(By.id("my-table")).findElements(By.tagName("tr")).size());
 	    driver.quit();
 	}
 	
