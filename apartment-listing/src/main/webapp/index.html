@@ -7,7 +7,6 @@ function createListing() {
 	var myForm = document.getElementById("input_form");
 	var suburbName = "";
 	for(i = 0; i <myForm.suburbs.length; i++) {
-		
 		if (myForm.suburbs[i].selected == true) {
 			suburbName =suburbName +","+ myForm.suburbs[i].value;
 		}
@@ -25,27 +24,27 @@ function createListing() {
 			$("#suburb").attr("value", suburbName);
 		}
 		$.ajax({
-		url:"../rest/create",
-		data:$('#input_form').serialize(),
-		dataType: 'json',
-		type: 'POST',
-		success: function(data) {
-			$("#my-table").show();
-			$("#confirmation").show();
-			$('#my-table > tbody:last').append('<tr><td>'+data.email+'</td><td>'+data.newListing.suburb+'</td><td>'+data.newListing.price+'</td></tr>');
-    	    }
-		statusCode: {
-		    400: function(err) {
-		      alert(err);
-		    }
-		  }		
+			url:"../rest/create",
+			data:$('#input_form').serialize(),
+			dataType: 'json',
+			type: 'POST',
+			success: function(data) {
+				$("#my-table").show();
+				$("#confirmation").show();
+				$('#my-table > tbody:last').append('<tr><td>'+data.email+'</td><td>'+data.newListing.suburb+'</td><td>'+data.newListing.price+'</td></tr>');
+    			return false; 
+			},
+			statusCode: {
+				400: function(err) {
+					alert(err);
+				},
+				404 : function(err) {
+					alert(err);
+				}
+			}
 		});
-			
-		
-		return false;
-	}
+	}	
 	return false;
-	
 }
 function validEmail() {
 	if($("#email").val() =="") {
@@ -56,12 +55,11 @@ function validEmail() {
 		var x=$("#email").val();
 		var atpos=x.indexOf("@");
 		var dotpos=x.lastIndexOf(".");
-		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
-		  {
+		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
 			$("#emailID").attr("class", "control-group error");
 			$("#email_span").text("Please enter a valid email");
 		  	return false;
-		  }
+		}
 	}
 	return true;
 }
@@ -81,9 +79,6 @@ function validPrice() {
 	}
 	return true;
 }
-	
-
-
 </script>
 <link href="twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet"/>
 </head>

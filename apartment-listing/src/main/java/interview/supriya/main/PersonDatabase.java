@@ -45,14 +45,14 @@ public class PersonDatabase {
     		}
     }
     public void createDBSchema(Connection connection) throws SQLException {
-    String sqlListing="drop table LISTING IF EXISTS\r\n;";
-    String createListing = "create table LISTING( "+
+   // String sqlListing="drop table LISTING IF EXISTS\r\n;";
+    String createListing = "create table IF NOT EXISTS LISTING( "+
 "personEmail varchar(128) not null,"+
 "price double,"+
 "suburb varchar(256),"+
 "entryDate date);";
     
-	connection.prepareStatement(sqlListing).execute();
+	//connection.prepareStatement(sqlListing).execute();
 	connection.prepareStatement(createListing).execute();
  
     }
